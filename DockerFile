@@ -1,0 +1,17 @@
+# Build stage (optional – here we assume you built with Maven already)
+# FROM maven:3.9.9-eclipse-temurin-17 AS build
+# WORKDIR /build
+# COPY . .
+# RUN mvn clean package -DskipTests
+
+# Runtime image
+FROM eclipse-temurin:17-jre
+
+WORKDIR /app
+
+# If you build locally with `mvn package`, copy the jar:
+COPY target/loyalty-points-service-1.0.0-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]
